@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Home Interface</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Smart Home Interface</h1>
+    
+    <div>
+        <h2>Lights Control</h2>
+        <button onclick="toggleLight('living_room_light')">Toggle Living Room Light</button>
+        <span id="living_room_light_status">{{ 'On' if state['living_room_light'] else 'Off' }}</span>
+        <br>
+        <button onclick="toggleLight('bedroom_light')">Toggle Bedroom Light</button>
+        <span id="bedroom_light_status">{{ 'On' if state['bedroom_light'] else 'Off' }}</span>
+        <br>
+        <button onclick="toggleLight('kitchen_light')">Toggle Kitchen Light</button>
+        <span id="kitchen_light_status">{{ 'On' if state['kitchen_light'] else 'Off' }}</span>
+    </div>
+
+    <div>
+        <h2>Sensor Data</h2>
+        <p>Temperature: <span id="temperature">{{ state['temperature'] }}°C</span></p>
+        <p>Daylight: <span id="daylight">{{ state['daylight'] }}</span></p>
+    </div>
+
+    <script>
+        function toggleLight(room) {
+            $.post('/toggle_light', { room: room }, function(data) {
+                $('#' + room + '_status').text(data[room] ? 'On' : 'Off');
+            });
+        }
+
+        function updateSensorData() {
+            $.get('/get_sensor_data', function(data) {
+                $('#temperature').text(data.temperature + '°C');
+                $('#daylight').text(data.daylight);
+            });
+        }
+
+        setInterval(updateSensorData, 5000);  // Update sensor data every 5 seconds
+    </script>
+</body>
+</html>
