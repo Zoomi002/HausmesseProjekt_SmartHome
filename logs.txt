@@ -1,0 +1,26 @@
+2024-07-18 09:58:26,324 - Living Room Light Light turned On
+2024-07-18 09:58:27,164 - Living Room Light Light turned Off
+2024-07-18 09:58:36,050 - Living Room Light Light turned On
+2024-07-18 09:58:39,683 - Bedroom Light Light turned On
+2024-07-18 09:58:42,992 - Kitchen Light Light turned On
+2024-07-18 09:58:54,312 - Bedroom Light Light turned Off
+2024-07-18 09:58:55,067 - Living Room Light Light turned Off
+2024-07-18 09:58:56,019 - Kitchen Light Light turned Off
+2024-07-18 09:59:18,914 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 09:59:19,847 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:00:18,916 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:00:19,848 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:01:18,917 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:01:19,848 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:02:18,917 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:02:19,850 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:03:18,919 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:03:19,851 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:04:18,919 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:04:19,851 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:06:29,456 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:06:32,882 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:07:29,459 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:07:32,884 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:08:29,460 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%
+2024-07-18 10:08:32,885 - Sensor Data: Temperature: 22°C, Daylight: bright, Humidity: 45%

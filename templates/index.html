@@ -7,8 +7,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #a7abae;
             color: #343a40;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
             margin-top: 50px;
@@ -19,11 +24,36 @@
         .card-header {
             font-weight: bold;
         }
-        .btn {
-            margin-right: 10px;
-        }
         .sensor-data {
             font-size: 1.2em;
+        }
+        .logs {
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #f8f9fa;
+            border-left: 1px solid #343a40;
+            padding: 20px;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+        .sidebar.collapsed {
+            transform: translateX(100%);
+        }
+        .sidebar-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -32,22 +62,19 @@
         <h1 class="text-center">Smart Home Interface</h1>
 
         <div class="card">
-            <div class="card-header">Lights Control</div>
-            <div class="card-body">
-                <button class="btn btn-primary" onclick="toggleLight('living_room_light')">Toggle Living Room Light</button>
-                <span id="living_room_light_status">{{ 'On' if state['living_room_light'] else 'Off' }}</span>
+            <div class="card-header text-center">Lights Control</div>
+            <div class="card-body text-center">
+                <button id="living_room_light_btn" class="btn" onclick="toggleLight('living_room_light')">Living Room</button>
                 <br>
-                <button class="btn btn-primary mt-3" onclick="toggleLight('bedroom_light')">Toggle Bedroom Light</button>
-                <span id="bedroom_light_status">{{ 'On' if state['bedroom_light'] else 'Off' }}</span>
+                <button id="bedroom_light_btn" class="btn mt-3" onclick="toggleLight('bedroom_light')">Bedroom</button>
                 <br>
-                <button class="btn btn-primary mt-3" onclick="toggleLight('kitchen_light')">Toggle Kitchen Light</button>
-                <span id="kitchen_light_status">{{ 'On' if state['kitchen_light'] else 'Off' }}</span>
+                <button id="kitchen_light_btn" class="btn mt-3" onclick="toggleLight('kitchen_light')">Kitchen</button>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-header">Sensor Data</div>
-            <div class="card-body">
+            <div class="card-header text-center">Sensor Data</div>
+            <div class="card-body text-center">
                 <p class="sensor-data">Temperature: <span id="temperature">{{ state['temperature'] }}°C</span></p>
                 <p class="sensor-data">Daylight: <span id="daylight">{{ state['daylight'] }}</span></p>
                 <p class="sensor-data">Humidity: <span id="humidity">{{ state['humidity'] }}%</span></p>
@@ -55,10 +82,29 @@
         </div>
     </div>
 
+    <div class="sidebar" id="logSidebar">
+        <div class="card">
+            <div class="card-header text-center">Logs</div>
+            <div class="card-body logs" id="logs">
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-secondary sidebar-toggle" onclick="toggleSidebar()">Toggle Logs</button>
+
     <script>
+        function updateButtonStatus(room, isOn) {
+            const button = $('#' + room + '_btn');
+            if (isOn) {
+                button.removeClass('btn-danger').addClass('btn-success');
+            } else {
+                button.removeClass('btn-success').addClass('btn-danger');
+            }
+        }
+
         function toggleLight(room) {
             $.post('/toggle_light', { room: room }, function(data) {
-                $('#' + room + '_status').text(data[room] ? 'On' : 'Off');
+                updateButtonStatus(room, data[room]);
             });
         }
 
@@ -70,7 +116,28 @@
             });
         }
 
-        setInterval(updateSensorData, 5000);  // Update sensor data every 5 seconds
+        function updateLogs() {
+            $.get('/get_logs', function(data) {
+                $('#logs').html(data.join('<br>'));
+            });
+        }
+
+        function toggleSidebar() {
+            $('#logSidebar').toggleClass('collapsed');
+        }
+
+        $(document).ready(function() {
+            // Initial button status update
+            updateButtonStatus('living_room_light', {{ 'true' if state['living_room_light'] else 'false' }});
+            updateButtonStatus('bedroom_light', {{ 'true' if state['bedroom_light'] else 'false' }});
+            updateButtonStatus('kitchen_light', {{ 'true' if state['kitchen_light'] else 'false' }});
+
+            // Update sensor data every 5 seconds
+            setInterval(updateSensorData, 5000);
+
+            // Update logs every 5 seconds
+            setInterval(updateLogs, 5000);
+        });
     </script>
 </body>
 </html>
