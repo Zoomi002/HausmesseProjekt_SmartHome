@@ -3,27 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Smart Home Interface</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            font-weight: bold;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+        .sensor-data {
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
-    <h1>Smart Home Interface</h1>
-    
-    <div>
-        <h2>Lights Control</h2>
-        <button onclick="toggleLight('living_room_light')">Toggle Living Room Light</button>
-        <span id="living_room_light_status">{{ 'On' if state['living_room_light'] else 'Off' }}</span>
-        <br>
-        <button onclick="toggleLight('bedroom_light')">Toggle Bedroom Light</button>
-        <span id="bedroom_light_status">{{ 'On' if state['bedroom_light'] else 'Off' }}</span>
-        <br>
-        <button onclick="toggleLight('kitchen_light')">Toggle Kitchen Light</button>
-        <span id="kitchen_light_status">{{ 'On' if state['kitchen_light'] else 'Off' }}</span>
-    </div>
+    <div class="container">
+        <h1 class="text-center">Smart Home Interface</h1>
 
-    <div>
-        <h2>Sensor Data</h2>
-        <p>Temperature: <span id="temperature">{{ state['temperature'] }}°C</span></p>
-        <p>Daylight: <span id="daylight">{{ state['daylight'] }}</span></p>
+        <div class="card">
+            <div class="card-header">Lights Control</div>
+            <div class="card-body">
+                <button class="btn btn-primary" onclick="toggleLight('living_room_light')">Toggle Living Room Light</button>
+                <span id="living_room_light_status">{{ 'On' if state['living_room_light'] else 'Off' }}</span>
+                <br>
+                <button class="btn btn-primary mt-3" onclick="toggleLight('bedroom_light')">Toggle Bedroom Light</button>
+                <span id="bedroom_light_status">{{ 'On' if state['bedroom_light'] else 'Off' }}</span>
+                <br>
+                <button class="btn btn-primary mt-3" onclick="toggleLight('kitchen_light')">Toggle Kitchen Light</button>
+                <span id="kitchen_light_status">{{ 'On' if state['kitchen_light'] else 'Off' }}</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Sensor Data</div>
+            <div class="card-body">
+                <p class="sensor-data">Temperature: <span id="temperature">{{ state['temperature'] }}°C</span></p>
+                <p class="sensor-data">Daylight: <span id="daylight">{{ state['daylight'] }}</span></p>
+                <p class="sensor-data">Humidity: <span id="humidity">{{ state['humidity'] }}%</span></p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -37,6 +66,7 @@
             $.get('/get_sensor_data', function(data) {
                 $('#temperature').text(data.temperature + '°C');
                 $('#daylight').text(data.daylight);
+                $('#humidity').text(data.humidity + '%');
             });
         }
 
