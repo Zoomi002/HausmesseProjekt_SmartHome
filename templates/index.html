@@ -78,6 +78,9 @@
                 <p class="sensor-data">Temperature: <span id="temperature">{{ state['temperature'] }}°C</span></p>
                 <p class="sensor-data">Daylight: <span id="daylight">{{ state['daylight'] }}</span></p>
                 <p class="sensor-data">Humidity: <span id="humidity">{{ state['humidity'] }}%</span></p>
+                <p class="sensor-data">Daylight LED: <span id="daylight_led">{{ 'On' if state['daylight_led'] else 'Off' }}</span></p>
+                <p class="sensor-data">Temperature LED: <span id="temperature_led">{{ 'On' if state['temperature_led'] else 'Off' }}</span></p>
+                <p class="sensor-data">Photoelectric LED: <span id="photoelectric_led">{{ 'On' if state['photoelectric_led'] else 'Off' }}</span></p>
             </div>
         </div>
     </div>
@@ -113,6 +116,9 @@
                 $('#temperature').text(data.temperature + '°C');
                 $('#daylight').text(data.daylight);
                 $('#humidity').text(data.humidity + '%');
+                $('#daylight_led').text(data.daylight_led ? 'On' : 'Off');
+                $('#temperature_led').text(data.temperature_led ? 'On' : 'Off');
+                $('#photoelectric_led').text(data.photoelectric_led ? 'On' : 'Off');
             });
         }
 
@@ -127,10 +133,10 @@
         }
 
         $(document).ready(function() {
-                // Initial button status update
-                updateButtonStatus('living_room_light', {{ 'true' if state['living_room_light'] else 'false' }});
-                updateButtonStatus('bedroom_light', {{ 'true' if state['bedroom_light'] else 'false' }});
-                updateButtonStatus('kitchen_light', {{ 'true' if state['kitchen_light'] else 'false' }});
+            // Initial button status update
+            updateButtonStatus('living_room_light', {{ 'true' if state['living_room_light'] else 'false' }});
+            updateButtonStatus('bedroom_light', {{ 'true' if state['bedroom_light'] else 'false' }});
+            updateButtonStatus('kitchen_light', {{ 'true' if state['kitchen_light'] else 'false' }});
 
             // Update sensor data every 5 seconds
             setInterval(updateSensorData, 5000);
