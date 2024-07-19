@@ -127,10 +127,10 @@
         }
 
         $(document).ready(function() {
-            // Initial button status update
-            updateButtonStatus('living_room_light', {{ 'true' if state['living_room_light'] else 'false' }});
-            updateButtonStatus('bedroom_light', {{ 'true' if state['bedroom_light'] else 'false' }});
-            updateButtonStatus('kitchen_light', {{ 'true' if state['kitchen_light'] else 'false' }});
+                // Initial button status update
+                updateButtonStatus('living_room_light', {{ 'true' if state['living_room_light'] else 'false' }});
+                updateButtonStatus('bedroom_light', {{ 'true' if state['bedroom_light'] else 'false' }});
+                updateButtonStatus('kitchen_light', {{ 'true' if state['kitchen_light'] else 'false' }});
 
             // Update sensor data every 5 seconds
             setInterval(updateSensorData, 5000);

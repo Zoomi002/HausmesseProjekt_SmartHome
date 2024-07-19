@@ -19,7 +19,7 @@ home_state = {
 # Set up logging
 logger = logging.getLogger('SmartHomeLogger')
 logger.setLevel(logging.INFO)
-handler = TimedRotatingFileHandler('logs.txt', when='midnight', interval=1, backupCount=7)
+handler = TimedRotatingFileHandler('logs.log', when='midnight', interval=1, backupCount=7)
 handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
 logger.addHandler(handler)
 
@@ -54,7 +54,7 @@ def get_sensor_data():
 
 @app.route('/get_logs', methods=['GET'])
 def get_logs():
-    with open('logs.txt', 'r') as f:
+    with open('logs.log', 'r') as f:
         logs = f.readlines()
     return jsonify(logs)
 
