@@ -1,0 +1,44 @@
+#!/usr/bin/python
+# coding=utf-8
+# Python Version 3
+# bme280_datenerfassung.py
+#-------------------------
+
+# Importieren der benötigten Module
+import smbus2
+from bme280 import BME280
+
+def read_bme280(i2c_address=0x76):
+    try:
+        # BME280 Sensor initialisieren
+        bus = smbus2.SMBus(1)
+        bme280 = BME280(i2c_dev=bus, i2c_addr=i2c_address)
+        
+        # Ausgabe der Messwerte
+        print(f"Temperatur: {bme280.get_temperature()}°C")
+        print(f"Luftfeuchtigkeit: {bme280.get_humidity()}%")
+        print(f"Luftdruck: {bme280.get_pressure()} hPa")
+
+        # Ausgabe der Messwerte auf 2 Nachkommastellen
+        print(f"Temperatur: {bme280.get_temperature():.2f}°C")
+        print(f"Luftfeuchtigkeit: {bme280.get_humidity():.2f}%")
+        print(f"Luftdruck: {bme280.get_pressure():.2f} hPa")
+
+        # Ausgabe der Messwerte auf 2 Nachkommastellen und Umrechnung in Fahrenheit
+        print(f"Temperatur: {bme280.get_temperature() * 9/5 + 32:.2f}°F")
+        print(f"Luftfeuchtigkeit: {bme280.get_humidity():.2f}%")
+        print(f"Luftdruck: {bme280.get_pressure():.2f} hPa")
+        
+    except Exception as e:
+        print(f"Fehler beim Lesen des BME280 Sensors: {e}")
+
+    # Ende des Programms
+    print("Programmende")
+
+# Versuch mit Adresse 0x76
+print("Versuch mit Adresse 0x76")
+read_bme280(0x76)
+
+# Wenn der erste Versuch fehlschlägt, versuchen Sie die Adresse 0x77
+print("Versuch mit Adresse 0x77")
+read_bme280(0x77)
